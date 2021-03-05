@@ -6,6 +6,7 @@ public class KeyController : MonoBehaviour
 {
 
     private AudioSource tone;
+    public string pitch;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,4 @@ public class KeyController : MonoBehaviour
             tone.Play();
         }
     }
-
-
 }
