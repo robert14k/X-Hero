@@ -41,14 +41,19 @@ public class KeyController : MonoBehaviour
         mat.SetFloat("_GlowIntensity", intensity);
         if (duration != 0)
         {
-            StartCoroutine(DimGlow(duration));
+            StartCoroutine(DimGlow(duration, intensity));
         }
     }
 
-    private IEnumerator DimGlow(float duration)
+    private IEnumerator DimGlow(float duration, float intensity)
     {
-        yield return new WaitForSeconds(duration);
-        // TODO: Dim over time
-        mat.SetFloat("_GlowIntensity", 0);
+        float progress = 0;
+        while (progress < duration)
+        {
+            mat.SetFloat("_GlowIntensity", intensity * (duration - progress) / duration);
+            progress += Time.deltaTime;
+            yield return null;
+        }
+        yield return null;
     }
 }
