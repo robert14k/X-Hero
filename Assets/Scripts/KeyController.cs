@@ -6,12 +6,14 @@ public class KeyController : MonoBehaviour
 {
 
     private AudioSource tone;
+    private Material mat;
     public string pitch;
 
     // Start is called before the first frame update
     void Start()
     {
         tone = GetComponent<AudioSource>();
+        mat = GetComponent<MeshRenderer>().material;
     }
 
     // Update is called once per frame
@@ -20,12 +22,33 @@ public class KeyController : MonoBehaviour
 
     }
 
-    private void onCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("mallet"))
+        if (other.isTrigger)
         {
-            Debug.Log(Vector3.Dot(other.contacts[0].normal, Vector3.up));
-            tone.Play();
+            if (other.gameObject.CompareTag("mallet"))
+            {
+                Debug.Log("hit");
+                tone.Play();
+                SetGlow(Color.green, 1f);
+            }
         }
+    }
+
+    private void SetGlow(Color color, float duration, float intensity = 0.5f)
+    {
+        mat.SetColor("_GlowColor", color);
+        mat.SetFloat("_GlowIntensity", intensity);
+        if (duration != 0)
+        {
+            StartCoroutine(DimGlow(duration));
+        }
+    }
+
+    private IEnumerator DimGlow(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        // TODO: Dim over time
+        mat.SetFloat("_GlowIntensity", 0);
     }
 }
