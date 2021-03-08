@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 public class KeyController : MonoBehaviour
 {
@@ -9,11 +10,15 @@ public class KeyController : MonoBehaviour
     private Material mat;
     public string pitch;
 
+    private Hand hand;
+    
+
     // Start is called before the first frame update
     void Start()
     {
         tone = GetComponent<AudioSource>();
         mat = GetComponent<MeshRenderer>().material;
+        hand = GetComponent<Hand>();
     }
 
     // Update is called once per frame
@@ -31,6 +36,7 @@ public class KeyController : MonoBehaviour
                 Debug.Log("hit");
                 tone.Play();
                 SetGlow(Color.green, 1f);
+                hand.TriggerHapticPulse(100);
             }
         }
     }
