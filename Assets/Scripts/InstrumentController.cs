@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class InstrumentController : MonoBehaviour
 {
-    private List<KeyController> keys = new List<KeyController>();
+    public List<KeyController> keys = new List<KeyController>();
 
     void Start()
     {
         // Populate the list of keys
-        foreach (Transform child in transform)
+        foreach (KeyController key in GetComponentsInChildren<KeyController>())
         {
-            KeyController key = child.GetComponent<KeyController>();
-            if (null != key)
-            {
-                keys.Add(key);
-            }
+            keys.Add(key);
+            key.SetInstrumentController(this);
         }
-        keys.Sort(/*TODO: SORT BY PITCH*/);
+
+        keys.Sort(delegate (KeyController x, KeyController y) 
+        {
+            int xPitch = ConvertToPitch(x.pitch);
+            int yPitch = ConvertToPitch(y.pitch);
+            if (xPitch == yPitch) return 0;
+            else if (xPitch < yPitch) return -1;
+            else return 1;
+        });
+
+        //keys[ConvertToPitch("g#2")].SetGlow(Color.blue, 0f);
     }
 
     public void OnKeyHit(KeyController key)
@@ -25,35 +32,26 @@ public class InstrumentController : MonoBehaviour
         // DO STUFF OR SOMETHIN IDK
     }
 
-    private int KeyToPitch(string key)
-    {
-        key = key.ToLower();
-        return 0;
-    }
-
     public static int ConvertToPitch(string note)
     {
+        note = note.ToLower();
         string sym = "";
         int oct = 0;
         string[][] notes = new string[][] { 
-            new string[] {"C"}, 
-            new string[] {"Db", "C#"}, 
-            new string[] {"D"}, 
-            new string[] {"Eb", "D#"},
-            new string[] {"E"},
-            new string[] {"F"},
-            new string[] {"Gb", "F#"},
-            new string[] {"G"},
-            new string[] {"Ab", "G#"},
-            new string[] {"A"},
-            new string[] {"Bb", "A#"},
-            new string[] {"B"} };
+            new string[] {"c"}, 
+            new string[] {"db", "c#"}, 
+            new string[] {"d"}, 
+            new string[] {"eb", "d#"},
+            new string[] {"e"},
+            new string[] {"f"},
+            new string[] {"gb", "f#"},
+            new string[] {"g"},
+            new string[] {"ab", "g#"},
+            new string[] {"a"},
+            new string[] {"bb", "a#"},
+            new string[] {"b"} };
 
         string splitNote = note;
-        foreach (char s in splitNote)
-        {
-            Debug.Log(s);
-        }
 
         // If the length is two, then grab the symbol and number.
         // Otherwise, it must be a two-char note.

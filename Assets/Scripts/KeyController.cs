@@ -10,21 +10,16 @@ public class KeyController : MonoBehaviour
     private Material mat;
     public string pitch;
 
-    private Hand hand;
+    private InstrumentController instrument;
+
+    private Coroutine activeDim;
     
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before Start, allowing us to initialize the key before anything else attempts to access it
+    void Awake()
     {
         tone = GetComponent<AudioSource>();
         mat = GetComponent<MeshRenderer>().material;
-        hand = GetComponent<Hand>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,21 +28,25 @@ public class KeyController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("mallet"))
             {
-                Debug.Log("hit");
                 tone.Play();
                 SetGlow(Color.green, 1f);
-                hand.TriggerHapticPulse(100);
+
+                instrument.OnKeyHit(this);
             }
         }
     }
 
-    private void SetGlow(Color color, float duration, float intensity = 0.5f)
+    public void SetGlow(Color color, float duration, float intensity = 0.5f)
     {
         mat.SetColor("_GlowColor", color);
         mat.SetFloat("_GlowIntensity", intensity);
         if (duration != 0)
         {
-            StartCoroutine(DimGlow(duration, intensity));
+            if (null != activeDim)
+            {
+                StopCoroutine(activeDim);
+            }
+            activeDim = StartCoroutine(DimGlow(duration, intensity));
         }
     }
 
@@ -61,5 +60,10 @@ public class KeyController : MonoBehaviour
             yield return null;
         }
         yield return null;
+    }
+
+    public void SetInstrumentController(InstrumentController instrument)
+    {
+        this.instrument = instrument;
     }
 }
