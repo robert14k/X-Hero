@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacd5a2cb7d21d4479601fcaeafe5397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midiPath: Wii
+  midiPath: Mario
   instrument: {fileID: 444392971}
 --- !u!114 &444392971 stripped
 MonoBehaviour:
