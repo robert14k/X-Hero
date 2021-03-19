@@ -28,12 +28,17 @@ public class KeyController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("mallet"))
             {
-                tone.Play();
-                SetGlow(Color.green, 1f);
-
-                instrument.OnKeyHit(this);
+                Play(Color.green);
             }
         }
+    }
+
+    public void Play(Color color)
+    {
+        tone.Play();
+        SetGlow(color, 1f);
+
+        instrument.OnKeyHit(this);
     }
 
     public void SetGlow(Color color, float duration, float intensity = 0.5f)

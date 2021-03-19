@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InstrumentController : MonoBehaviour
 {
-    public List<KeyController> keys = new List<KeyController>();
+    private List<KeyController> keys = new List<KeyController>();
+    public int noteOffset;
 
     void Start()
     {
@@ -30,6 +31,16 @@ public class InstrumentController : MonoBehaviour
     public void OnKeyHit(KeyController key)
     {
         // DO STUFF OR SOMETHIN IDK
+    }
+
+    public void PlayNote(int note)
+    {
+        note -= noteOffset;
+        if (note < 0 || note >= keys.Count)
+        {
+            return;
+        }
+        keys[note].Play(Color.blue);
     }
 
     public static int ConvertToPitch(string note)
