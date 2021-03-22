@@ -40,7 +40,7 @@ public class SongController : MonoBehaviour
         if (!paused)
         {
             songTime += Time.deltaTime * speed;
-            while (currentNote < notes.Count)
+            while (true)
             {
                 Note note = notes[currentNote];
                 float noteTime = note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
@@ -48,6 +48,11 @@ public class SongController : MonoBehaviour
                 {
                     instrument.PrepNote(note.NoteNumber, noteTime);
                     currentNote++;
+                    if (currentNote == notes.Count)
+                    {
+                        paused = true;
+                        break;
+                    }
                 }
                 else
                 {
