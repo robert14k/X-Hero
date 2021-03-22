@@ -24,8 +24,6 @@ public class InstrumentController : MonoBehaviour
             else if (xPitch < yPitch) return -1;
             else return 1;
         });
-
-        //keys[ConvertToPitch("g#2")].SetGlow(Color.blue, 0f);
     }
 
     public void OnKeyHit(KeyController key)
@@ -36,7 +34,7 @@ public class InstrumentController : MonoBehaviour
     public void PlayNote(int note)
     {
         note -= noteOffset;
-        if (note < 0 || note >= keys.Count)
+        if (note < 0 || note > keys.Count)
         {
             return;
         }
