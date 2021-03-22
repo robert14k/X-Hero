@@ -109,7 +109,7 @@ public class SongController : MonoBehaviour
     public void ScoreKeeper(float score)
     {
         totalScore += score;
-        averageScore = totalScore / currentNote;
+        averageScore = totalScore / noteIndex;
     }
 }
 
