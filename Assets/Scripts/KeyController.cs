@@ -45,9 +45,7 @@ public class KeyController : MonoBehaviour
     public void Prep(Color color, float noteTime)
     {
         SetGlow(color, -1f);
-        System.Threading.Thread.Sleep(1000);
         this.noteTime = noteTime + 1f;
-        Play(Color.blue);
 
     }
 
