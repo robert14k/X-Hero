@@ -52,7 +52,7 @@ public class SongController : MonoBehaviour
                 float noteTime = GetNoteTime(note);
                 if (noteTime <= songTime)
                 {
-                    instrument.PlayNote(note.NoteNumber);
+                    instrument.PrepNote(note.NoteNumber, noteTime);
                     noteIndex++;
                     if (noteIndex == notes.Count)
                     {
