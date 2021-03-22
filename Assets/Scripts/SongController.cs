@@ -14,7 +14,10 @@ public class SongController : MonoBehaviour
     [SerializeField()]
     private InstrumentController instrument;
 
+    public bool paused = false;
+    public float speed = 1;
     private float startTime;
+    private float songTime = 0;
     private int currentNote = 0;
 
     // Start is called before the first frame update
@@ -25,10 +28,6 @@ public class SongController : MonoBehaviour
         tempoMap = midiFile.GetTempoMap();
 
         notes = new List<Note>(midiFile.GetNotes());
-        foreach(Note note in notes)
-        {
-            MetricTimeSpan time = note.TimeAs<MetricTimeSpan>(tempoMap);
-        }
 
         startTime = Time.time;
     }
@@ -36,19 +35,22 @@ public class SongController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float songTime = Time.time - startTime;
-        while (true)
+        if (!paused)
         {
-            Note note = notes[currentNote];
-            float noteTime = note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
-            if (noteTime <= songTime)
+            songTime += Time.deltaTime * speed;
+            while (currentNote < notes.Count)
             {
-                instrument.PlayNote(note.NoteNumber);
-                currentNote++;
-            }
-            else
-            {
-                break;
+                Note note = notes[currentNote];
+                float noteTime = note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
+                if (noteTime <= songTime)
+                {
+                    instrument.PlayNote(note.NoteNumber);
+                    currentNote++;
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }

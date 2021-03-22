@@ -1083,6 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   midiPath: Mario
+  speed: 1
   instrument: {fileID: 444392971}
 --- !u!114 &444392971 stripped
 MonoBehaviour:
