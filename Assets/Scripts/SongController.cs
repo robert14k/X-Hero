@@ -19,6 +19,8 @@ public class SongController : MonoBehaviour
     private float startTime;
     private float songTime = 0;
     private int currentNote = 0;
+    private float totalScore = 0;
+    private float averageScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +46,7 @@ public class SongController : MonoBehaviour
                 float noteTime = note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
                 if (noteTime <= songTime)
                 {
-                    instrument.PlayNote(note.NoteNumber);
+                    instrument.PrepNote(note.NoteNumber, noteTime);
                     currentNote++;
                 }
                 else
@@ -53,5 +55,11 @@ public class SongController : MonoBehaviour
                 }
             }
         }
+    }
+    
+    public void ScoreKeeper(float score)
+    { 
+        totalScore += score;
+        averageScore = totalScore / currentNote;
     }
 }

@@ -6,6 +6,7 @@ public class InstrumentController : MonoBehaviour
 {
     private List<KeyController> keys = new List<KeyController>();
     public int noteOffset;
+    [SerializeField] private SongController songController;
 
     void Start()
     {
@@ -41,6 +42,16 @@ public class InstrumentController : MonoBehaviour
             return;
         }
         keys[note].Play(Color.blue);
+    }
+
+    public void PrepNote(int note, float noteTime)
+    {
+        note -= noteOffset;
+        if (note < 0 || note >= keys.Count)
+        {
+            return;
+        }
+        keys[note].Prep(Color.yellow, noteTime);
     }
 
     public static int ConvertToPitch(string note)
@@ -90,5 +101,10 @@ public class InstrumentController : MonoBehaviour
 
         // If nothing was found, we return -1.
         return -1;
+    }
+    
+    public void ScoreKeeper(float score)
+    {
+        songController.ScoreKeeper(score);
     }
 }
