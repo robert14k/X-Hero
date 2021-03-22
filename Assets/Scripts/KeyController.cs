@@ -11,7 +11,7 @@ public class KeyController : MonoBehaviour
     public string pitch;
 
     private InstrumentController instrument;
-
+    private float noteTime;
     private Coroutine activeDim;
     
 
@@ -29,6 +29,7 @@ public class KeyController : MonoBehaviour
             if (other.gameObject.CompareTag("mallet"))
             {
                 Play(Color.green);
+                ScoreKeep();
             }
         }
     }
@@ -39,6 +40,21 @@ public class KeyController : MonoBehaviour
         SetGlow(color, 1f);
 
         instrument.OnKeyHit(this);
+    }
+
+    public void Prep(Color color, float noteTime)
+    {
+        SetGlow(color, -1f);
+        this.noteTime = noteTime + 1f;
+
+    }
+
+    private void ScoreKeep()
+    {
+        float diff = Time.deltaTime - noteTime;
+        diff *= 10;
+        float score = 100 - diff;
+        instrument.ScoreKeeper(score);
     }
 
     public void SetGlow(Color color, float duration, float intensity = 0.5f)
