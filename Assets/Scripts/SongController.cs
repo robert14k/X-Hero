@@ -22,6 +22,9 @@ public class SongController : MonoBehaviour
     private List<Note> notes;
     private TempoMap tempoMap;
 
+    private float totalScore = 0;
+    private float averageScore = 0;
+
     void Start()
     {
         midiPath = "Assets\\Songs\\" + midiPath + ".mid";
@@ -101,6 +104,12 @@ public class SongController : MonoBehaviour
     public float GetNoteTime(Note note)
     {
         return note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
+    }
+
+    public void ScoreKeeper(float score)
+    {
+        totalScore += score;
+        averageScore = totalScore / currentNote;
     }
 }
 
