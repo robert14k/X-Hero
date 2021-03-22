@@ -92,6 +92,12 @@ public class SongController : MonoBehaviour
         }
     }
 
+    public void JumpToNote(int index)
+    {
+        noteIndex = index;
+        songTime = GetNoteTime(notes[index]);
+    }
+
     private IEnumerator StepThroughSong()
     {
         while (true)
