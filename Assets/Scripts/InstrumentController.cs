@@ -45,7 +45,7 @@ public class InstrumentController : MonoBehaviour
     public void PrepNote(int note, float noteTime)
     {
         note -= noteOffset;
-        if (note < 0 || note >= keys.Count)
+        if (note < 0 || note > keys.Count)
         {
             return;
         }

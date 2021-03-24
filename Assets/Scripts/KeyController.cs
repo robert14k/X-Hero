@@ -5,7 +5,6 @@ using Valve.VR.InteractionSystem;
 
 public class KeyController : MonoBehaviour
 {
-
     private AudioSource tone;
     private Material mat;
     public string pitch;
@@ -13,6 +12,7 @@ public class KeyController : MonoBehaviour
     private InstrumentController instrument;
     private float noteTime;
     private Coroutine activeDim;
+    private Coroutine activeProgress;
     
 
     // Awake is called before Start, allowing us to initialize the key before anything else attempts to access it
@@ -42,11 +42,17 @@ public class KeyController : MonoBehaviour
         instrument.OnKeyHit(this);
     }
 
-    public void Prep(Color color, float noteTime)
+    public void Prep(Color color, float offset)
     {
-        SetGlow(color, -1f);
-        this.noteTime = noteTime + 1f;
+        this.noteTime = Time.time + offset;
 
+        if (null != activeProgress)
+        {
+            StopCoroutine(activeProgress);
+        }
+        mat.SetColor("_ProgressColor", color);
+        mat.SetFloat("_Progress", 0f);
+        activeProgress = StartCoroutine(IncreaseProgress(offset));
     }
 
     private void ScoreKeep()
@@ -67,11 +73,11 @@ public class KeyController : MonoBehaviour
             {
                 StopCoroutine(activeDim);
             }
-            activeDim = StartCoroutine(DimGlow(duration, intensity));
+            activeDim = StartCoroutine(DecreaseGlow(duration, intensity));
         }
     }
 
-    private IEnumerator DimGlow(float duration, float intensity)
+    private IEnumerator DecreaseGlow(float duration, float intensity)
     {
         float progress = 0;
         while (progress < duration)
@@ -80,6 +86,20 @@ public class KeyController : MonoBehaviour
             progress += Time.deltaTime;
             yield return null;
         }
+        yield return null;
+    }
+
+    private IEnumerator IncreaseProgress(float duration)
+    {
+        float progress = 0;
+        while (progress < duration)
+        {
+            mat.SetFloat("_Progress", progress / duration);
+            progress += Time.deltaTime;
+            yield return null;
+        }
+        mat.SetFloat("_Progress", 0f);
+        // Play(Color.blue);
         yield return null;
     }
 
