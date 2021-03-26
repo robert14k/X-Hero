@@ -5,16 +5,15 @@ using Valve.VR.InteractionSystem;
 
 public class MalletController : MonoBehaviour
 {
-    private Vector3 position;
-    private Quaternion rotation;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
     private bool ShouldReturn = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        Transform transform = GetComponent<Transform>();
-        position = transform.position;
-        rotation = transform.rotation;
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public class MalletController : MonoBehaviour
                 Debug.Log("should return");
                 GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                 GetComponent<Rigidbody>().angularVelocity = new Vector3(0f, 0f, 0f);
-                GetComponent<Transform>().SetPositionAndRotation(position, rotation);
+                transform.SetPositionAndRotation(startPosition, startRotation);
                 ShouldReturn = false;
                 return;
             }
