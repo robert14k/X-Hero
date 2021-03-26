@@ -112,7 +112,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Progress: 0.5
+    - _Progress: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -125,6 +125,8 @@ Material:
     m_Colors:
     - Color_159d0a0a1fd042e08bfe6d068b629d17: {r: 0.3490566, g: 0.27343985, b: 0.21294646, a: 0}
     - Color_acc8b4b8df2b4f3f9b098ef6c4a13323: {r: 0.097529344, g: 2.925883, b: 0, a: 0}
+    - Vector2_6d76f23d81d545b5b98609825ef4d2ee: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_ba0307b740cb4b54b276b36572705597: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

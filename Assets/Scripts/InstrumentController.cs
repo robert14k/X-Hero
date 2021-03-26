@@ -39,7 +39,7 @@ public class InstrumentController : MonoBehaviour
         {
             return;
         }
-        keys[note].Play(Color.blue);
+        keys[note].Play(Color.green);
     }
 
     public void PrepNote(int note, float noteTime)
@@ -49,7 +49,7 @@ public class InstrumentController : MonoBehaviour
         {
             return;
         }
-        keys[note].Prep(Color.yellow, noteTime);
+        keys[note].Prep(Color.blue, 0.5f);
     }
 
     public static int ConvertToPitch(string note)

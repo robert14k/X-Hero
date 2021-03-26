@@ -37,14 +37,14 @@ public class KeyController : MonoBehaviour
     public void Play(Color color)
     {
         tone.Play();
-        SetGlow(color, 1f);
+        SetGlow(color, .5f);
 
         instrument.OnKeyHit(this);
     }
 
     public void Prep(Color color, float offset)
     {
-        this.noteTime = Time.time + offset;
+        noteTime = Time.time + offset;
 
         if (null != activeProgress)
         {
@@ -99,7 +99,7 @@ public class KeyController : MonoBehaviour
             yield return null;
         }
         mat.SetFloat("_Progress", 0f);
-        // Play(Color.blue);
+        Play(Color.green);
         yield return null;
     }
 
