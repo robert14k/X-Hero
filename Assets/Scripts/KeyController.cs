@@ -13,13 +13,18 @@ public class KeyController : MonoBehaviour
     private float noteTime;
     private Coroutine activeDim;
     private Coroutine activeProgress;
-    
+
+    private SongController songController;
+
+    private bool shouldPlay = false;
 
     // Awake is called before Start, allowing us to initialize the key before anything else attempts to access it
     void Awake()
     {
         tone = GetComponent<AudioSource>();
         mat = GetComponent<MeshRenderer>().material;
+
+        songController = SongController.Instance;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,8 +33,22 @@ public class KeyController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("mallet"))
             {
-                Play(Color.green);
-                ScoreKeep();
+                if (songController.playMode == PlayMode.Stepped && shouldPlay)
+                {
+                    Play(Color.green);
+                    songController.StepByAmount(1);
+                    shouldPlay = false;
+                    if (activeProgress != null)
+                    {
+                        StopCoroutine(activeProgress);
+                    }
+                    mat.SetFloat("_Progress", 0);
+                }
+                else
+                {
+                    Play(Color.green);
+                    ScoreKeep();
+                }
             }
         }
     }
@@ -44,12 +63,17 @@ public class KeyController : MonoBehaviour
 
     public void Prep(Color color, float offset)
     {
+        if (songController.playMode == PlayMode.Stepped)
+        {
+            shouldPlay = true;
+        }
         noteTime = Time.time + offset;
 
         if (null != activeProgress)
         {
             StopCoroutine(activeProgress);
         }
+
         mat.SetColor("_ProgressColor", color);
         mat.SetFloat("_Progress", 0f);
         activeProgress = StartCoroutine(IncreaseProgress(offset));
@@ -98,8 +122,10 @@ public class KeyController : MonoBehaviour
             progress += Time.deltaTime;
             yield return null;
         }
-        mat.SetFloat("_Progress", 0f);
-        Play(Color.green);
+        if (songController.playMode == PlayMode.Continuous)
+        {
+            mat.SetFloat("_Progress", 0f);
+        }
         yield return null;
     }
 

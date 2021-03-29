@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class InstrumentController : MonoBehaviour
 {
-    private List<KeyController> keys = new List<KeyController>();
     public int noteOffset;
-    [SerializeField] private SongController songController;
+    public bool demo = false;
+
+    private List<KeyController> keys = new List<KeyController>();
+    private SongController songController;
+
+    private float totalScore = 0;
 
     void Start()
     {
@@ -25,11 +29,27 @@ public class InstrumentController : MonoBehaviour
             else if (xPitch < yPitch) return -1;
             else return 1;
         });
+
+        songController = SongController.Instance;
+        SongController.OnNote += OnSongNote;
+
     }
 
     public void OnKeyHit(KeyController key)
     {
         // DO STUFF OR SOMETHIN IDK
+    }
+
+    private void OnSongNote(int noteNumber, float noteTime)
+    {
+        if (demo)
+        {
+            PlayNote(noteNumber);
+        } 
+        else
+        {
+            PrepNote(noteNumber, noteTime);
+        }
     }
 
     public void PlayNote(int note)
@@ -100,9 +120,9 @@ public class InstrumentController : MonoBehaviour
         // If nothing was found, we return -1.
         return -1;
     }
-    
+
     public void ScoreKeeper(float score)
     {
-        songController.ScoreKeeper(score);
+        totalScore += score;
     }
 }

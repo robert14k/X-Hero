@@ -5,11 +5,13 @@ using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 
-public class SongController : MonoBehaviour
+public class SongController : Singleton<SongController>
 {
-    public string midiPath;
+    [SerializeField]
+    private string midiPath;
     
-    [SerializeField()] private InstrumentController instrument;
+    [SerializeField()]
+    private InstrumentController instrument;
 
     public PlayMode playMode = PlayMode.Continuous;
     public bool paused = false;
@@ -22,8 +24,8 @@ public class SongController : MonoBehaviour
     private List<Note> notes;
     private TempoMap tempoMap;
 
-    private float totalScore = 0;
-    private float averageScore = 0;
+    public delegate void SongAction(int noteNumber, float noteTime);
+    public static event SongAction OnNote;
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class SongController : MonoBehaviour
         startTime = Time.time;
 
         if (playMode == PlayMode.Stepped)
-            StartCoroutine(StepThroughSong());
+            StepByAmount(1);
     }
 
     void Update()
@@ -52,7 +54,7 @@ public class SongController : MonoBehaviour
                 float noteTime = GetNoteTime(note);
                 if (noteTime <= songTime)
                 {
-                    instrument.PrepNote(note.NoteNumber, noteTime);
+                    OnNote(note.NoteNumber, noteTime);
                     noteIndex++;
                     if (noteIndex == notes.Count)
                     {
@@ -71,7 +73,6 @@ public class SongController : MonoBehaviour
     public void StepByAmount(int amount)
     {
         int direction = Math.Sign(amount);
-        Debug.Log(noteIndex);
 
         for (int i = 0; i < amount; i++)
         {
@@ -85,7 +86,7 @@ public class SongController : MonoBehaviour
                 note = notes[noteIndex];
                 noteTime = GetNoteTime(note);
 
-                instrument.PlayNote(note.NoteNumber);
+                OnNote(note.NoteNumber, noteTime);
                 songTime = noteTime;
             } 
             while (noteTime == GetNoteTime(notes[noteIndex + direction]));
@@ -110,12 +111,6 @@ public class SongController : MonoBehaviour
     public float GetNoteTime(Note note)
     {
         return note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
-    }
-
-    public void ScoreKeeper(float score)
-    {
-        totalScore += score;
-        averageScore = totalScore / noteIndex;
     }
 }
 
