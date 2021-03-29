@@ -5,51 +5,50 @@ using Valve.VR.InteractionSystem;
 
 public class ButtonController: MonoBehaviour
 {
-	pubilc SongController songController; 
+	public SongController songController;
+	private int speed = 0;
+	private float[] speeds = new float[] { 0.3F, 0.5F, 0.8F, 1.0F, 1.2F };
 
 	//-------------------------------------------------
-	public void ShowButtonHints(Hand hand)
+	public void ChangeSpeed()
 	{
-		if (buttonHintCoroutine != null)
-		{
-			StopCoroutine(buttonHintCoroutine);
-		}
-		buttonHintCoroutine = StartCoroutine(TestButtonHints(hand));
+		songController.speed = speeds[speed % speeds.Length];
+		speed++;
 	}
 
 
-	//-------------------------------------------------
-	public void ShowTextHints(Hand hand)
-	{
-		if (textHintCoroutine != null)
-		{
-			StopCoroutine(textHintCoroutine);
-		}
-		textHintCoroutine = StartCoroutine(TestTextHints(hand));
-	}
+	////-------------------------------------------------
+	//public void ShowTextHints(Hand hand)
+	//{
+	//	if (textHintCoroutine != null)
+	//	{
+	//		StopCoroutine(textHintCoroutine);
+	//	}
+	//	textHintCoroutine = StartCoroutine(TestTextHints(hand));
+	//}
 
 
-	//-------------------------------------------------
-	public void DisableHints()
-	{
-		if (buttonHintCoroutine != null)
-		{
-			StopCoroutine(buttonHintCoroutine);
-			buttonHintCoroutine = null;
-		}
+	////-------------------------------------------------
+	//public void DisableHints()
+	//{
+	//	if (buttonHintCoroutine != null)
+	//	{
+	//		StopCoroutine(buttonHintCoroutine);
+	//		buttonHintCoroutine = null;
+	//	}
 
-		if (textHintCoroutine != null)
-		{
-			StopCoroutine(textHintCoroutine);
-			textHintCoroutine = null;
-		}
+	//	if (textHintCoroutine != null)
+	//	{
+	//		StopCoroutine(textHintCoroutine);
+	//		textHintCoroutine = null;
+	//	}
 
-		foreach (Hand hand in Player.instance.hands)
-		{
-			ControllerButtonHints.HideAllButtonHints(hand);
-			ControllerButtonHints.HideAllTextHints(hand);
-		}
-	}
+	//	foreach (Hand hand in Player.instance.hands)
+	//	{
+	//		ControllerButtonHints.HideAllButtonHints(hand);
+	//		ControllerButtonHints.HideAllTextHints(hand);
+	//	}
+	//}
 
 
 	//-------------------------------------------------
