@@ -38,7 +38,8 @@ public class SongController : Singleton<SongController>
         startTime = Time.time;
 
         if (playMode == PlayMode.Stepped)
-            StepByAmount(1);
+            OnNote(notes[noteIndex].NoteNumber, 0);
+        //    StartCoroutine(StepThroughSong());
     }
 
     void Update()

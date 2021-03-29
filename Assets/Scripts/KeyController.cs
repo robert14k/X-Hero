@@ -25,6 +25,7 @@ public class KeyController : MonoBehaviour
         mat = GetComponent<MeshRenderer>().material;
 
         songController = SongController.Instance;
+        SongController.OnNote = OnSongNote;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,13 +37,15 @@ public class KeyController : MonoBehaviour
                 if (songController.playMode == PlayMode.Stepped && shouldPlay)
                 {
                     Play(Color.green);
-                    songController.StepByAmount(1);
                     shouldPlay = false;
+
                     if (activeProgress != null)
                     {
                         StopCoroutine(activeProgress);
                     }
                     mat.SetFloat("_Progress", 0);
+
+                    songController.StepByAmount(1);
                 }
                 else
                 {
@@ -51,6 +54,11 @@ public class KeyController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnSongNote(int noteNumber, float noteTime)
+    {
+        // Cancel visual stuff
     }
 
     public void Play(Color color)
