@@ -9,9 +9,17 @@ public class ButtonController: MonoBehaviour
 	public SongController songController;
 	private int speed = 0;
 	private float[] speeds = new float[] { 0.3F, 0.5F, 0.8F, 1.0F, 1.2F };
+	public Text speedText;
 
 	//-------------------------------------------------
 	public void ChangeSpeed()
+	{
+		songController.speed = speeds[speed % speeds.Length];
+		speedText.text = (speed % speeds.Length + 1).ToString();
+		speed++;
+	}
+
+	public void ChangeSong()
 	{
 		songController.speed = speeds[speed % speeds.Length];
 		GetComponentInChildren<Text>().text = (speed + 1).ToString();
