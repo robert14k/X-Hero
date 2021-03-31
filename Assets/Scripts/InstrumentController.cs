@@ -40,15 +40,20 @@ public class InstrumentController : MonoBehaviour
         // DO STUFF OR SOMETHIN IDK
     }
 
-    private void OnSongNote(int noteNumber, float noteTime)
+    private void OnSongNote(List<int> noteNumbers, List<float> noteTimes)
     {
-        if (demo)
+        for (int i = 0; i < noteNumbers.Count; i++)
         {
-            PlayNote(noteNumber);
-        } 
-        else
-        {
-            PrepNote(noteNumber, noteTime);
+            int noteNumber = noteNumbers[i];
+            float noteTime = noteTimes[i];
+            if (demo)
+            {
+                PlayNote(noteNumber);
+            }
+            else
+            {
+                PrepNote(noteNumber, noteTime);
+            }
         }
     }
 

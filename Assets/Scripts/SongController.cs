@@ -24,7 +24,7 @@ public class SongController : Singleton<SongController>
     private List<Note> notes;
     private TempoMap tempoMap;
 
-    public delegate void SongAction(int noteNumber, float noteTime);
+    public delegate void SongAction(List<int> noteNumber, List<float> noteTime);
     public static event SongAction OnNote;
 
     void Start()
@@ -38,8 +38,8 @@ public class SongController : Singleton<SongController>
         startTime = Time.time;
 
         if (playMode == PlayMode.Stepped)
-            OnNote(notes[noteIndex].NoteNumber, 0);
-        //    StartCoroutine(StepThroughSong());
+        //    OnNote(notes[noteIndex].NoteNumber, 0);
+            StartCoroutine(StepThroughSong());
     }
 
     void Update()
@@ -49,13 +49,16 @@ public class SongController : Singleton<SongController>
             songTime += Time.deltaTime * speed;
 
             // Find all notes that exist between the last frame and this frame and play them
+            List<int> noteNumbers = new List<int>();
+            List<float> noteTimes = new List<float>();
             while (true)
             {
                 Note note = notes[noteIndex];
                 float noteTime = GetNoteTime(note);
                 if (noteTime <= songTime)
                 {
-                    OnNote(note.NoteNumber, noteTime);
+                    noteNumbers.Add(note.NoteNumber);
+                    noteTimes.Add(noteTime);
                     noteIndex++;
                     if (noteIndex == notes.Count)
                     {
@@ -68,6 +71,7 @@ public class SongController : Singleton<SongController>
                     break;
                 }
             }
+            OnNote(noteNumbers, noteTimes);
         }
     }
 
@@ -81,16 +85,20 @@ public class SongController : Singleton<SongController>
             float noteTime;
 
             // All notes in a chord are considered to be part of the same "step"
+            List<int> noteNumbers = new List<int>();
+            List<float> noteTimes = new List<float>();
             do
             {
                 noteIndex += direction;
                 note = notes[noteIndex];
                 noteTime = GetNoteTime(note);
 
-                OnNote(note.NoteNumber, noteTime);
+                noteNumbers.Add(note.NoteNumber);
+                noteTimes.Add(noteTime);
                 songTime = noteTime;
             } 
             while (noteTime == GetNoteTime(notes[noteIndex + direction]));
+            OnNote(noteNumbers, noteTimes);
         }
     }
 
