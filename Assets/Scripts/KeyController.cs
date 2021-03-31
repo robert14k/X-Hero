@@ -56,9 +56,15 @@ public class KeyController : MonoBehaviour
         }
     }
 
-    private void OnSongNote(int noteNumber, float noteTime)
+    private void OnSongNote(List<int> noteNumbers, List<float> noteTimes)
     {
         // Cancel visual stuff
+        //if (activeProgress != null)
+        //{
+        //    StopCoroutine(activeProgress);
+        //}
+
+        //mat.SetFloat("_Progress", 0);
     }
 
     public void Play(Color color)
