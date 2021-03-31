@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
+using UnityEngine.UI;
 
 public class ButtonController: MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ButtonController: MonoBehaviour
 	public void ChangeSpeed()
 	{
 		songController.speed = speeds[speed % speeds.Length];
+		GetComponentInChildren<Text>().text = (speed + 1).ToString();
 		speed++;
 	}
 
