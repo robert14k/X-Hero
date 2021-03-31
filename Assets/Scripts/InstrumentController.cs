@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,11 +38,22 @@ public class InstrumentController : MonoBehaviour
 
     public void OnKeyHit(KeyController key)
     {
-        // DO STUFF OR SOMETHIN IDK
+        if (songController.playMode == PlayMode.Stepped)
+        {
+            songController.StepByAmount(1);
+        }
+        else
+        {
+            // We're in continuous mode, do scoring
+        }
     }
 
     private void OnSongNote(List<int> noteNumbers, List<float> noteTimes)
     {
+        if (songController.playMode == PlayMode.Stepped)
+        {
+            ResetNoteVisuals();
+        }
         for (int i = 0; i < noteNumbers.Count; i++)
         {
             int noteNumber = noteNumbers[i];
@@ -54,6 +66,14 @@ public class InstrumentController : MonoBehaviour
             {
                 PrepNote(noteNumber, noteTime);
             }
+        }
+    }
+
+    private void ResetNoteVisuals()
+    {
+        foreach (KeyController key in keys)
+        {
+            key.ResetVisuals();
         }
     }
 
@@ -124,10 +144,5 @@ public class InstrumentController : MonoBehaviour
 
         // If nothing was found, we return -1.
         return -1;
-    }
-
-    public void ScoreKeeper(float score)
-    {
-        totalScore += score;
     }
 }

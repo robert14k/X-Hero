@@ -45,12 +45,15 @@ public class KeyController : MonoBehaviour
                     }
                     mat.SetFloat("_Progress", 0);
 
-                    songController.StepByAmount(1);
+                    instrument.OnKeyHit(this);
                 }
-                else
+                else if (songController.playMode == PlayMode.Stepped && !shouldPlay)
+                {
+                    Play(Color.red);
+                }
+                else 
                 {
                     Play(Color.green);
-                    ScoreKeep();
                 }
             }
         }
@@ -71,8 +74,6 @@ public class KeyController : MonoBehaviour
     {
         tone.Play();
         SetGlow(color, .5f);
-
-        instrument.OnKeyHit(this);
     }
 
     public void Prep(Color color, float offset)
@@ -93,12 +94,13 @@ public class KeyController : MonoBehaviour
         activeProgress = StartCoroutine(IncreaseProgress(offset));
     }
 
-    private void ScoreKeep()
+    public void ResetVisuals()
     {
-        float diff = Time.deltaTime - noteTime;
-        diff *= 10;
-        float score = 100 - diff;
-        instrument.ScoreKeeper(score);
+        if (activeProgress != null)
+        {
+            StopCoroutine(activeProgress);
+        }
+        mat.SetFloat("_Progress", 0);
     }
 
     public void SetGlow(Color color, float duration, float intensity = 0.5f)
