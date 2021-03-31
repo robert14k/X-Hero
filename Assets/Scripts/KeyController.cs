@@ -25,7 +25,7 @@ public class KeyController : MonoBehaviour
         mat = GetComponent<MeshRenderer>().material;
 
         songController = SongController.Instance;
-        SongController.OnNote = OnSongNote;
+        SongController.OnNote += OnSongNote;
     }
 
     private void OnTriggerEnter(Collider other)
