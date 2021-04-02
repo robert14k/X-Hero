@@ -10,6 +10,11 @@ public class ButtonController: MonoBehaviour
 	private int speed = 0;
 	private float[] speeds = new float[] { 0.3F, 0.5F, 0.8F, 1.0F, 1.2F };
 	public Text speedText;
+	public Text songText;
+	public Text typeText;
+	private string[] songs = new string[] { "Mario", "Pirate", "Wii" };
+	private int song = 0;
+	bool isStepped = false;
 
 	//-------------------------------------------------
 	public void ChangeSpeed()
@@ -21,9 +26,25 @@ public class ButtonController: MonoBehaviour
 
 	public void ChangeSong()
 	{
-		songController.speed = speeds[speed % speeds.Length];
-		GetComponentInChildren<Text>().text = (speed + 1).ToString();
-		speed++;
+		songController.midiPath = songs[song % songs.Length];
+		songText.text = songs[song % songs.Length];
+		song++;
+		songController.ResetSong();
+	}
+
+	public void ChangeType()
+	{
+        if(isStepped){
+			songController.playMode = PlayMode.Continuous;
+			typeText.text = "Continuous";
+        }
+        else
+        {
+			songController.playMode = PlayMode.Stepped;
+			typeText.text = "Stepped";
+		}
+		isStepped = !isStepped;
+		songController.ResetSong();
 	}
 
 

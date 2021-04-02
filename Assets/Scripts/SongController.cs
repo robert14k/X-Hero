@@ -8,7 +8,7 @@ using Melanchall.DryWetMidi.Interaction;
 public class SongController : Singleton<SongController>
 {
     [SerializeField]
-    private string midiPath;
+    public string midiPath;
     
     [SerializeField()]
     private InstrumentController instrument;
@@ -29,13 +29,23 @@ public class SongController : Singleton<SongController>
 
     void Start()
     {
-        midiPath = "Assets\\Songs\\" + midiPath + ".mid";
+        ResetSong();
+    }
+
+    public void ResetSong()
+    {
+        if (!midiPath.Contains(".mid"))
+        {
+            midiPath = "Assets\\Songs\\" + midiPath + ".mid";
+        }
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
 
         notes = new List<Note>(midiFile.GetNotes());
 
         startTime = Time.time;
+        songTime = 0;
+        noteIndex = 0;
 
         if (playMode == PlayMode.Stepped)
             //OnNote(notes[noteIndex].NoteNumber, 0);
