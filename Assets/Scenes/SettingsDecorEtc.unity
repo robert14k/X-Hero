@@ -8872,7 +8872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: midiPath
-      value: pirate
+      value: mario
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: playMode

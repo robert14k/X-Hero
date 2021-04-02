@@ -29,7 +29,7 @@ public class SongController : Singleton<SongController>
 
     void Start()
     {
-        midiPath = "Assets\\Songs\\" + midiPath + ".mid";
+        midiPath = Application.streamingAssetsPath + "\\Songs\\" + midiPath + ".mid";
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
 
