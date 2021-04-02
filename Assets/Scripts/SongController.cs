@@ -36,7 +36,7 @@ public class SongController : Singleton<SongController>
     {
         if (!midiPath.Contains(".mid"))
         {
-            midiPath = "Assets\\Songs\\" + midiPath + ".mid";
+            midiPath = Application.streamingAssetsPath + "\\Songs\\" + midiPath + ".mid";
         }
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
