@@ -27,17 +27,17 @@ public class SongController : Singleton<SongController>
     public delegate void SongAction(List<int> noteNumber, List<float> noteTime);
     public static event SongAction OnNote;
 
-    void Start()
+    void Awake()
     {
         ResetSong();
     }
 
     public void ResetSong()
     {
-        //if (!midiPath.Contains(".mid"))
-        //{
-            midiPath = Application.streamingAssetsPath + "\\Songs\\" + midiPath + ".mid";
-        //}
+        if (!midiPath.Contains(".mid"))
+        {
+            midiPath = Application.streamingAssetsPath + "/Songs/" + midiPath + ".mid";
+        }
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
 
@@ -46,11 +46,6 @@ public class SongController : Singleton<SongController>
         startTime = Time.time;
         songTime = 0;
         noteIndex = 0;
-
-        if (playMode == PlayMode.Stepped)
-            //onnote(notes[noteindex].notenumber, 0);
-            //startcoroutine(stepthroughsong());
-            StepByAmount(1);
     }
 
     void Update()
@@ -83,6 +78,12 @@ public class SongController : Singleton<SongController>
                 }
             }
             OnNote(noteNumbers, noteTimes);
+        }
+
+        if (playMode == PlayMode.Stepped && noteIndex == 0)
+        {
+            noteIndex = -1;
+            StepByAmount(1);
         }
     }
 
