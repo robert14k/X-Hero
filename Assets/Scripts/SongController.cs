@@ -34,10 +34,10 @@ public class SongController : Singleton<SongController>
 
     public void ResetSong()
     {
-        if (!midiPath.Contains(".mid"))
-        {
+        //if (!midiPath.Contains(".mid"))
+        //{
             midiPath = Application.streamingAssetsPath + "\\Songs\\" + midiPath + ".mid";
-        }
+        //}
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
 
@@ -48,8 +48,8 @@ public class SongController : Singleton<SongController>
         noteIndex = 0;
 
         if (playMode == PlayMode.Stepped)
-            //OnNote(notes[noteIndex].NoteNumber, 0);
-            //StartCoroutine(StepThroughSong());
+            //onnote(notes[noteindex].notenumber, 0);
+            //startcoroutine(stepthroughsong());
             StepByAmount(1);
     }
 

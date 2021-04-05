@@ -23,7 +23,6 @@ public class MalletController : MonoBehaviour
         Hand attached = interact.attachedToHand;
         if (attached != null)
         {
-            Debug.Log("attached");
             ShouldReturn = true;
             return;
         }
