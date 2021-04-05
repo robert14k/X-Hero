@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 20054203}
   - component: {fileID: 20054202}
   - component: {fileID: 20054201}
+  - component: {fileID: 20054205}
   m_Layer: 5
   m_Name: Song_Button
   m_TagString: Untagged
@@ -290,6 +291,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 20054201}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls: []
+--- !u!222 &20054204
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20054199}
+  m_CullTransparentMesh: 1
+--- !u!114 &20054205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20054199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53cd2ef2dd3d5d64e96af4420220d1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHandClick:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 57579950}
         m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
@@ -303,14 +327,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!222 &20054204
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20054199}
-  m_CullTransparentMesh: 1
 --- !u!1 &24440821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1094,7 @@ GameObject:
   - component: {fileID: 291462684}
   - component: {fileID: 291462683}
   - component: {fileID: 291462682}
+  - component: {fileID: 291462686}
   m_Layer: 5
   m_Name: Type_Button
   m_TagString: Untagged
@@ -1253,6 +1270,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291462680}
   m_CullTransparentMesh: 1
+--- !u!114 &291462686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291462680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53cd2ef2dd3d5d64e96af4420220d1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHandClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 57579950}
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: ChangeType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &346728161
 GameObject:
   m_ObjectHideFlags: 0
@@ -4500,6 +4544,7 @@ GameObject:
   - component: {fileID: 1780630004}
   - component: {fileID: 1780630007}
   - component: {fileID: 1780630008}
+  - component: {fileID: 1780630006}
   m_Layer: 5
   m_Name: Speed_Button
   m_TagString: Untagged
@@ -4572,6 +4617,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1780630008}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls: []
+--- !u!222 &1780630005
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780630002}
+  m_CullTransparentMesh: 1
+--- !u!114 &1780630006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780630002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53cd2ef2dd3d5d64e96af4420220d1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHandClick:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 57579950}
         m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
@@ -4585,14 +4653,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!222 &1780630005
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780630002}
-  m_CullTransparentMesh: 1
 --- !u!114 &1780630007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9707,15 +9767,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: midiPath
-      value: pirate
+      value: mario
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: playMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038497, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: demo
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038499, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: m_PlayOnAwake
