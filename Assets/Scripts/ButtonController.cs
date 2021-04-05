@@ -16,8 +16,14 @@ public class ButtonController: MonoBehaviour
 	private int song = 0;
 	bool isStepped = false;
 
-	//-------------------------------------------------
-	public void ChangeSpeed()
+    //-------------------------------------------------
+
+    public void Start()
+    {
+		typeText.text = songController.playMode.ToString();
+    }
+
+    public void ChangeSpeed()
 	{
 		songController.speed = speeds[speed % speeds.Length];
 		speedText.text = (speed % speeds.Length + 1).ToString();
