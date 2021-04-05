@@ -9703,7 +9703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: speed
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: midiPath
@@ -9711,7 +9711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: playMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038497, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: demo

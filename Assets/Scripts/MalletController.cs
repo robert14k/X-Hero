@@ -23,7 +23,6 @@ public class MalletController : MonoBehaviour
         Hand attached = interact.attachedToHand;
         if (attached != null)
         {
-            Debug.Log("attached");
             ShouldReturn = true;
             return;
         }
@@ -31,7 +30,6 @@ public class MalletController : MonoBehaviour
         {
             if (ShouldReturn)
             {
-                Debug.Log("should return");
                 GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                 GetComponent<Rigidbody>().angularVelocity = new Vector3(0f, 0f, 0f);
                 transform.SetPositionAndRotation(startPosition, startRotation);

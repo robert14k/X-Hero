@@ -19,7 +19,7 @@ public class KeyController : MonoBehaviour
     private bool shouldPlay = false;
 
     // Awake is called before Start, allowing us to initialize the key before anything else attempts to access it
-    void Awake()
+    void Start()
     {
         tone = GetComponent<AudioSource>();
         mat = GetComponent<MeshRenderer>().material;
@@ -61,13 +61,7 @@ public class KeyController : MonoBehaviour
 
     private void OnSongNote(List<int> noteNumbers, List<float> noteTimes)
     {
-        // Cancel visual stuff
-        //if (activeProgress != null)
-        //{
-        //    StopCoroutine(activeProgress);
-        //}
-
-        //mat.SetFloat("_Progress", 0);
+        // Do stuff
     }
 
     public void Play(Color color)
@@ -99,6 +93,7 @@ public class KeyController : MonoBehaviour
         if (activeProgress != null)
         {
             StopCoroutine(activeProgress);
+            shouldPlay = false;
         }
         mat.SetFloat("_Progress", 0);
     }
@@ -126,6 +121,7 @@ public class KeyController : MonoBehaviour
             progress += Time.deltaTime;
             yield return null;
         }
+        mat.SetFloat("_GlowIntensity", 0f);
         yield return null;
     }
 
