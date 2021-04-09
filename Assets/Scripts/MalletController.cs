@@ -23,7 +23,11 @@ public class MalletController : MonoBehaviour
         Hand attached = interact.attachedToHand;
         if (attached != null)
         {
-            ShouldReturn = true;
+            if (!ShouldReturn)
+            {
+                ShouldReturn = true;
+                setHand(attached);
+            }
             return;
         }
         else
@@ -53,6 +57,12 @@ public class MalletController : MonoBehaviour
         //}
         //Transform current = GetComponent<Transform>();
         //if (current.position.y >=)
+    }
+
+    void setHand(Hand hand)
+    {
+        Transform handTransform = hand.transform;
+        transform.SetPositionAndRotation(handTransform.position + new Vector3(.2f, 0f, 0f), handTransform.rotation);
     }
 
 }
