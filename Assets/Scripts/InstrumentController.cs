@@ -33,7 +33,7 @@ public class InstrumentController : MonoBehaviour
 
         songController = SongController.Instance;
         SongController.OnNote += OnSongNote;
-
+        SongController.OnEarlyNote += OnEarlySongNote;
     }
 
     public void OnKeyHit(KeyController key)
@@ -50,6 +50,23 @@ public class InstrumentController : MonoBehaviour
 
     private void OnSongNote(List<int> noteNumbers, List<float> noteTimes)
     {
+        for (int i = 0; i < noteNumbers.Count; i++)
+        {
+            int noteNumber = noteNumbers[i];
+            float noteTime = noteTimes[i];
+            if (songController.playMode == PlayMode.Continuous && demo)
+            {
+                PlayNote(noteNumber);
+            }
+            else if (songController.playMode == PlayMode.Stepped)
+            {
+                PrepNote(noteNumber, noteTime, Color.blue);
+            }
+        }
+    }
+
+    private void OnEarlySongNote(List<int> noteNumbers, List<float> noteTimes)
+    {
         if (songController.playMode == PlayMode.Stepped)
         {
             ResetNoteVisuals();
@@ -58,13 +75,13 @@ public class InstrumentController : MonoBehaviour
         {
             int noteNumber = noteNumbers[i];
             float noteTime = noteTimes[i];
-            if (demo)
+            if (songController.playMode == PlayMode.Continuous)
             {
-                PlayNote(noteNumber);
+                PrepNote(noteNumber, noteTime, Color.blue);
             }
-            else
+            else if (songController.playMode == PlayMode.Stepped)
             {
-                PrepNote(noteNumber, noteTime);
+                EarlyPrepNote(noteNumber, noteTime, Color.yellow);
             }
         }
     }
@@ -87,14 +104,24 @@ public class InstrumentController : MonoBehaviour
         keys[note].Play(Color.green);
     }
 
-    public void PrepNote(int note, float noteTime)
+    public void PrepNote(int note, float noteTime, Color color)
     {
         note -= noteOffset;
         if (note < 0 || note > keys.Count)
         {
             return;
         }
-        keys[note].Prep(Color.blue, 0.5f);
+        keys[note].Prep(color, 0.5f);
+    }
+
+    public void EarlyPrepNote(int note, float noteTime, Color color)
+    {
+        note -= noteOffset;
+        if (note < 0 || note > keys.Count)
+        {
+            return;
+        }
+        keys[note].EarlyPrep(color, 0.5f);
     }
 
     public static int ConvertToPitch(string note)
