@@ -36,6 +36,13 @@ public class MalletController : MonoBehaviour
                 ShouldReturn = false;
                 return;
             }
+            if(transform.position.y < startPosition.y - 1)
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                GetComponent<Rigidbody>().angularVelocity = new Vector3(0f, 0f, 0f);
+                transform.SetPositionAndRotation(startPosition, startRotation);
+                return;
+            }
         }
         //bool isAttached = attached.ObjectIsAttached(gameObject);
         //if (!isAttached)
