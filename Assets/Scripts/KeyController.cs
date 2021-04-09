@@ -88,6 +88,18 @@ public class KeyController : MonoBehaviour
         activeProgress = StartCoroutine(IncreaseProgress(offset));
     }
 
+    public void EarlyPrep(Color color, float offset)
+    {
+        if (null != activeProgress)
+        {
+            StopCoroutine(activeProgress);
+        }
+
+        mat.SetColor("_ProgressColor", color);
+        mat.SetFloat("_Progress", 0f);
+        activeProgress = StartCoroutine(IncreaseProgress(offset));
+    }
+
     public void ResetVisuals()
     {
         if (activeProgress != null)
