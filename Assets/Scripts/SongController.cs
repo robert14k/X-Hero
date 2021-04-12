@@ -44,6 +44,8 @@ public class SongController : Singleton<SongController>
         }
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
+        Metronome.Instance.bpm = tempoMap.Tempo.AtTime(0).BeatsPerMinute;
+        Metronome.Instance.Reset();
 
         notes = new List<Note>(midiFile.GetNotes());
 
