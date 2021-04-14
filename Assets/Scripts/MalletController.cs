@@ -26,7 +26,7 @@ public class MalletController : MonoBehaviour
             //if (!ShouldReturn)
             //{
                 ShouldReturn = true;
-                setHand(attached);
+                //setHand(attached);
             //}
             return;
         }
