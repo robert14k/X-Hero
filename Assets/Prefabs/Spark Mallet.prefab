@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 6507599123919345751}
   - component: {fileID: 6507599123919345744}
   m_Layer: 0
-  m_Name: mallet (1) FIRE
+  m_Name: Spark Mallet
   m_TagString: mallet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
