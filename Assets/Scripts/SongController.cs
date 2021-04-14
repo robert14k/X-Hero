@@ -12,6 +12,7 @@ public class SongController : Singleton<SongController>
     
     [SerializeField()]
     private InstrumentController instrument;
+    public int noteOffset = 48;
 
     public PlayMode playMode = PlayMode.Continuous;
     public bool paused = false;
@@ -88,7 +89,7 @@ public class SongController : Singleton<SongController>
             float noteTime = GetNoteTime(note);
             if (noteTime <= earlySongTime)
             {
-                noteNumbers.Add(note.NoteNumber);
+                noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 earlyNoteIndex++;
                 if (earlyNoteIndex == notes.Count)
@@ -118,7 +119,7 @@ public class SongController : Singleton<SongController>
             float noteTime = GetNoteTime(note);
             if (noteTime <= songTime)
             {
-                noteNumbers.Add(note.NoteNumber);
+                noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 noteIndex++;
                 if (noteIndex == notes.Count)
@@ -153,7 +154,7 @@ public class SongController : Singleton<SongController>
                 note = notes[earlyNoteIndex];
                 noteTime = GetNoteTime(note);
 
-                noteNumbers.Add(note.NoteNumber);
+                noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 earlySongTime = noteTime;
             }
@@ -175,7 +176,7 @@ public class SongController : Singleton<SongController>
                 note = notes[noteIndex];
                 noteTime = GetNoteTime(note);
 
-                noteNumbers.Add(note.NoteNumber);
+                noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 songTime = noteTime;
             } 
