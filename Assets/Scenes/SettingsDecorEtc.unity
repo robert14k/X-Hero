@@ -16083,6 +16083,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacd5a2cb7d21d4479601fcaeafe5397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8070452564906776340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2542935341508373710, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
+  m_PrefabInstance: {fileID: 8070452564906776254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8070452564906776341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070452564906776340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a58e445428e4984da8256db10c8dd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostNotePrefab: {fileID: 7588880799271724925, guid: 3a7e5675bb318574484c9a0d72476de5, type: 3}
+  travelOffset: {x: -2, y: 0, z: 0}
+  travelDuration: 2
 --- !u!4 &8117775034146936862
 Transform:
   m_ObjectHideFlags: 0
