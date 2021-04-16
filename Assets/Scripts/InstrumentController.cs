@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class InstrumentController : MonoBehaviour
 {
-    public int noteOffset;
     public bool demo = false;
 
     private List<KeyController> keys = new List<KeyController>();
@@ -96,7 +95,6 @@ public class InstrumentController : MonoBehaviour
 
     public void PlayNote(int note)
     {
-        note -= noteOffset;
         if (note < 0 || note > keys.Count)
         {
             return;
@@ -106,7 +104,6 @@ public class InstrumentController : MonoBehaviour
 
     public void PrepNote(int note, float noteTime, Color color)
     {
-        note -= noteOffset;
         if (note < 0 || note > keys.Count)
         {
             return;
@@ -116,7 +113,6 @@ public class InstrumentController : MonoBehaviour
 
     public void EarlyPrepNote(int note, float noteTime, Color color)
     {
-        note -= noteOffset;
         if (note < 0 || note > keys.Count)
         {
             return;
