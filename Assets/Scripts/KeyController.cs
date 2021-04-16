@@ -34,6 +34,8 @@ public class KeyController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("mallet"))
             {
+                GameObject sparks = other.gameObject.transform.GetChild(3).gameObject;
+                sparks.GetComponent<ParticleSystem>().Play();
                 if (songController.playMode == PlayMode.Stepped && shouldPlay)
                 {
                     Play(Color.green);
@@ -44,6 +46,21 @@ public class KeyController : MonoBehaviour
                         StopCoroutine(activeProgress);
                     }
                     mat.SetFloat("_Progress", 0);
+
+                    if (songController.CheckNotes(pitch))
+                    {
+                        GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
+                        GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
+                        fire.GetComponent<ParticleSystem>().Play();
+                        fire2.GetComponent<ParticleSystem>().Play();
+                    }
+                    else
+                    {
+                        GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
+                        GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
+                        fire.GetComponent<ParticleSystem>().Stop();
+                        fire2.GetComponent<ParticleSystem>().Stop();
+                    }
 
                     instrument.OnKeyHit(this);
                 }

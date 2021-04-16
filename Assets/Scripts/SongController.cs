@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using System.Linq;
 
 public class SongController : Singleton<SongController>
 {
@@ -31,6 +32,8 @@ public class SongController : Singleton<SongController>
     public delegate void SongAction(List<int> noteNumber, List<float> noteTime);
     public static event SongAction OnNote;
     public static event SongAction OnEarlyNote;
+
+    private int streak = 0;
 
     void Awake()
     {
@@ -204,6 +207,48 @@ public class SongController : Singleton<SongController>
     {
         return note.TimeAs<MetricTimeSpan>(tempoMap).TotalMicroseconds / 1000000f;
     }
+
+    public Boolean CheckNotes(string noteName)
+    {
+        int note = InstrumentController.ConvertToPitch(noteName) + noteOffset;
+
+        if (playMode == PlayMode.Continuous)
+        {
+            List<Note> sameNotes = (List<Note>)notes.Where(x => x.NoteNumber == note);
+            if (sameNotes.Count > 0)
+            {
+                float currentTime = Time.time;
+                Note closest = sameNotes.Aggregate((x, y) => Math.Abs((GetNoteTime(x) * speed + startTime) - currentTime) < Math.Abs((GetNoteTime(y) * speed + startTime) - currentTime) ? x : y);
+
+                if (Math.Abs((GetNoteTime(closest) * speed + startTime) - currentTime) < 2)
+                {
+                    streak++;
+                    if (streak > 2)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            if(notes[noteIndex].NoteNumber == note)
+            {
+                streak++;
+                if (streak > 2)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        streak = 0;
+        return false;
+
+    }
+
 }
 
 public enum PlayMode

@@ -28,6 +28,7 @@ public class ButtonController: MonoBehaviour
 		songController.speed = speeds[speed % speeds.Length];
 		speedText.text = (speed % speeds.Length + 1).ToString();
 		speed++;
+		songController.ResetSong();
 	}
 
 	public void ChangeSong()
