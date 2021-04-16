@@ -5,11 +5,11 @@ using UnityEngine;
 public class GhostController : MonoBehaviour
 {
     public Transform ghostNotePrefab;
+    public Vector3 travelOffset;
+    public float travelDuration = 1;
 
     private List<KeyController> keys = new List<KeyController>();
     private SongController songController;
-
-    private float offset = 0;
 
     void Start()
     {
@@ -30,9 +30,6 @@ public class GhostController : MonoBehaviour
 
         songController = SongController.Instance;
         SongController.OnEarlyNote += OnEarlySongNote;
-
-        // TODO: CALCULATE NOTE TRAVEL DISTANCE HERE
-        offset = 1;
     }
 
     private void OnEarlySongNote(List<int> noteNumbers, List<float> noteTimes)
@@ -43,11 +40,15 @@ public class GhostController : MonoBehaviour
         }
         for (int i = 0; i < noteNumbers.Count; i++)
         {
-            // Instantiate the ghost note here
-
             Vector3 start = keys[noteNumbers[i]].transform.position;
+            GhostNote ghostNote = Instantiate(ghostNotePrefab, start, Quaternion.identity).GetComponent<GhostNote>();
             // Set its start position
+            ghostNote.startPos = ghostNote.transform.position;
             // Set its end position
+            ghostNote.endPos = ghostNote.startPos + travelOffset;
+            ghostNote.duration = songController.delay;
+
+            StartCoroutine(ghostNote.MoveNote());
         }
     }
 

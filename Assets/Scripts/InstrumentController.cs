@@ -108,7 +108,7 @@ public class InstrumentController : MonoBehaviour
         {
             return;
         }
-        keys[note].Prep(color, 0.5f);
+        keys[note].Prep(color, songController.delay);
     }
 
     public void EarlyPrepNote(int note, float noteTime, Color color)
@@ -117,7 +117,7 @@ public class InstrumentController : MonoBehaviour
         {
             return;
         }
-        keys[note].EarlyPrep(color, 0.5f);
+        keys[note].EarlyPrep(color, songController.delay);
     }
 
     public static int ConvertToPitch(string note)
