@@ -12,7 +12,7 @@ public class ButtonController: MonoBehaviour
 	public Text speedText;
 	public Text songText;
 	public Text typeText;
-    private string[] songs = new string[] { "Mario", "Pirate", "Wii", "Bad Guy", "Castle", "Dynamite", "Eye Tiger", "Jurassic Park", "Small Worl", "Twinkle Star", "USA" };
+    private string[] songs = new string[] { "Mario", "Pirate", "Wii", "Bad Guy", "Castle", "Dynamite", "Eye Tiger", "Jurassic Park", "Small World", "Twinkle Star", "USA", "RuleTheWorld", "SaveMe", "StayinAlive" };
 
 	private int song = 0;
 	bool isStepped = false;
