@@ -51,6 +51,10 @@ public class InstrumentController : MonoBehaviour
     {
         for (int i = 0; i < noteNumbers.Count; i++)
         {
+            if (noteNumbers[i] < 0 || noteNumbers[i] >= keys.Count)
+            {
+                continue;
+            }
             int noteNumber = noteNumbers[i];
             float noteTime = noteTimes[i];
             if (songController.playMode == PlayMode.Continuous && demo)
@@ -72,6 +76,10 @@ public class InstrumentController : MonoBehaviour
         }
         for (int i = 0; i < noteNumbers.Count; i++)
         {
+            if (noteNumbers[i] < 0 || noteNumbers[i] >= keys.Count)
+            {
+                continue;
+            }
             int noteNumber = noteNumbers[i];
             float noteTime = noteTimes[i];
             if (songController.playMode == PlayMode.Continuous)

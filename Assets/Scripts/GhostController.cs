@@ -40,6 +40,10 @@ public class GhostController : MonoBehaviour
         }
         for (int i = 0; i < noteNumbers.Count; i++)
         {
+            if (noteNumbers[i] < 0 || noteNumbers[i] >= keys.Count)
+            {
+                continue;
+            }
             Vector3 start = keys[noteNumbers[i]].transform.position;
             GhostNote ghostNote = Instantiate(ghostNotePrefab, start, Quaternion.identity).GetComponent<GhostNote>();
             // Set its start position
