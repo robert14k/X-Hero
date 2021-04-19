@@ -47,31 +47,66 @@ public class KeyController : MonoBehaviour
                     }
                     mat.SetFloat("_Progress", 0);
 
+                    GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
+                    GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
                     if (songController.CheckNotes(pitch))
                     {
-                        GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
-                        GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
                         fire.GetComponent<ParticleSystem>().Play();
+                        fire.GetComponent<ParticleSystem>().startSpeed += .1f;
                         fire2.GetComponent<ParticleSystem>().Play();
+                        fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
                     }
                     else
                     {
-                        GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
-                        GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
                         fire.GetComponent<ParticleSystem>().Stop();
+                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
                         fire2.GetComponent<ParticleSystem>().Stop();
+                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
                     }
-
                     instrument.OnKeyHit(this);
                 }
                 else if (songController.playMode == PlayMode.Stepped && !shouldPlay)
                 {
+                    GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
+                    GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
+                    if (songController.CheckNotes(pitch))
+                    {
+                        fire.GetComponent<ParticleSystem>().Play();
+                        fire.GetComponent<ParticleSystem>().startSpeed += .1f;
+                        fire2.GetComponent<ParticleSystem>().Play();
+                        fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
+                    }
+                    else
+                    {
+                        fire.GetComponent<ParticleSystem>().Stop();
+                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
+                        fire2.GetComponent<ParticleSystem>().Stop();
+                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
+                    }
                     Play(Color.red);
                 }
                 else 
                 {
+                    GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
+                    GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
+                    if (songController.CheckNotes(pitch))
+                    {
+                        fire.GetComponent<ParticleSystem>().Play();
+                        fire.GetComponent<ParticleSystem>().startSpeed += .1f;
+                        fire2.GetComponent<ParticleSystem>().Play();
+                        fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
+                    }
+                    else
+                    {
+                        fire.GetComponent<ParticleSystem>().Stop();
+                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
+                        fire2.GetComponent<ParticleSystem>().Stop();
+                        fire2.GetComponent<ParticleSystem>().startSpeed = .5f;
+                    }
                     Play(Color.green);
                 }
+
+                
             }
         }
     }

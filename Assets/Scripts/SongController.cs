@@ -210,18 +210,20 @@ public class SongController : Singleton<SongController>
 
     public Boolean CheckNotes(string noteName)
     {
-        int note = InstrumentController.ConvertToPitch(noteName) + noteOffset;
-
+        int note = InstrumentController.ConvertToPitch(noteName) + 48;
+        Debug.Log(note);
         if (playMode == PlayMode.Continuous)
         {
-            List<Note> sameNotes = (List<Note>)notes.Where(x => x.NoteNumber == note);
+            List<Note> sameNotes = notes.Where(x => x.NoteNumber == note).ToList();
             if (sameNotes.Count > 0)
             {
-                float currentTime = Time.time;
-                Note closest = sameNotes.Aggregate((x, y) => Math.Abs((GetNoteTime(x) * speed + startTime) - currentTime) < Math.Abs((GetNoteTime(y) * speed + startTime) - currentTime) ? x : y);
-
-                if (Math.Abs((GetNoteTime(closest) * speed + startTime) - currentTime) < 2)
+                float currentTime = songTime;
+                Note closest = sameNotes.Aggregate((x, y) => Math.Abs(GetNoteTime(x) - currentTime) < Math.Abs(GetNoteTime(y) - currentTime) ? x : y);
+                Debug.Log(GetNoteTime(closest));
+                Debug.Log(currentTime);
+                if (Math.Abs(GetNoteTime(closest) - currentTime) < 1)
                 {
+
                     streak++;
                     if (streak > 2)
                     {
