@@ -46,7 +46,7 @@ public class GhostController : MonoBehaviour
             ghostNote.startPos = ghostNote.transform.position;
             // Set its end position
             ghostNote.endPos = ghostNote.startPos + travelOffset;
-            ghostNote.duration = songController.delay;
+            ghostNote.duration = songController.delay / songController.speed;
 
             StartCoroutine(ghostNote.MoveNote());
         }
