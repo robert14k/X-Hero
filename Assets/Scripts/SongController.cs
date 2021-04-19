@@ -74,7 +74,11 @@ public class SongController : Singleton<SongController>
         if (playMode == PlayMode.Stepped && noteIndex == 0)
         {
             noteIndex = -1;
-            earlyNoteIndex = 1;
+            earlyNoteIndex = noteIndex;
+            while (notes[earlyNoteIndex + 1].Time == notes[noteIndex + 1].Time)
+            {
+                earlyNoteIndex++;
+            }
             StepByAmount(1);
         }
     }
@@ -192,15 +196,6 @@ public class SongController : Singleton<SongController>
     {
         noteIndex = index;
         songTime = GetNoteTime(notes[index]);
-    }
-
-    private IEnumerator StepThroughSong()
-    {
-        while (true)
-        {
-            StepByAmount(1);
-            yield return new WaitForSeconds(0.5f);
-        }
     }
 
     public float GetNoteTime(Note note)
