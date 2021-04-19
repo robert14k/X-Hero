@@ -40,13 +40,17 @@ public class GhostController : MonoBehaviour
         }
         for (int i = 0; i < noteNumbers.Count; i++)
         {
+            if (noteNumbers[i] < 0 || noteNumbers[i] >= keys.Count)
+            {
+                continue;
+            }
             Vector3 start = keys[noteNumbers[i]].transform.position;
             GhostNote ghostNote = Instantiate(ghostNotePrefab, start, Quaternion.identity).GetComponent<GhostNote>();
             // Set its start position
             ghostNote.startPos = ghostNote.transform.position;
             // Set its end position
             ghostNote.endPos = ghostNote.startPos + travelOffset;
-            ghostNote.duration = songController.delay;
+            ghostNote.duration = songController.delay / songController.speed;
 
             StartCoroutine(ghostNote.MoveNote());
         }

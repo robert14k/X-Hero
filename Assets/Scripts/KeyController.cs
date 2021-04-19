@@ -102,7 +102,7 @@ public class KeyController : MonoBehaviour
 
         mat.SetColor("_ProgressColor", color);
         mat.SetFloat("_Progress", 0f);
-        activeProgress = StartCoroutine(IncreaseProgress(offset));
+        activeProgress = StartCoroutine(IncreaseProgress(offset / songController.speed));
     }
 
     public void EarlyPrep(Color color, float offset)
@@ -114,7 +114,7 @@ public class KeyController : MonoBehaviour
 
         mat.SetColor("_ProgressColor", color);
         mat.SetFloat("_Progress", 0f);
-        activeProgress = StartCoroutine(IncreaseProgress(offset));
+        activeProgress = StartCoroutine(IncreaseProgress(offset / songController.speed));
     }
 
     public void ResetVisuals()
