@@ -206,7 +206,6 @@ public class SongController : Singleton<SongController>
     public Boolean CheckNotes(string noteName)
     {
         int note = InstrumentController.ConvertToPitch(noteName) + 48;
-        Debug.Log(note);
         if (playMode == PlayMode.Continuous)
         {
             List<Note> sameNotes = notes.Where(x => x.NoteNumber == note).ToList();

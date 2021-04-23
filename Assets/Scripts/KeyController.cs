@@ -46,62 +46,37 @@ public class KeyController : MonoBehaviour
                         StopCoroutine(activeProgress);
                     }
                     mat.SetFloat("_Progress", 0);
-
-                    GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
-                    GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
                     if (songController.CheckNotes(pitch))
                     {
-                        fire.GetComponent<ParticleSystem>().Play();
-                        fire.GetComponent<ParticleSystem>().startSpeed += .1f;
-                        fire2.GetComponent<ParticleSystem>().Play();
-                        fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
+                        IgniteFireMallet();
                     }
                     else
                     {
-                        fire.GetComponent<ParticleSystem>().Stop();
-                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
-                        fire2.GetComponent<ParticleSystem>().Stop();
-                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
+                        ExtinguishFireMallet();
                     }
                     instrument.OnKeyHit(this);
                 }
                 else if (songController.playMode == PlayMode.Stepped && !shouldPlay)
                 {
-                    GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
-                    GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
                     if (songController.CheckNotes(pitch))
                     {
-                        fire.GetComponent<ParticleSystem>().Play();
-                        fire.GetComponent<ParticleSystem>().startSpeed += .1f;
-                        fire2.GetComponent<ParticleSystem>().Play();
-                        fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
+                        IgniteFireMallet();
                     }
                     else
                     {
-                        fire.GetComponent<ParticleSystem>().Stop();
-                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
-                        fire2.GetComponent<ParticleSystem>().Stop();
-                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
+                        ExtinguishFireMallet();
                     }
                     Play(Color.red);
                 }
                 else 
                 {
-                    GameObject fire = other.gameObject.transform.GetChild(1).gameObject;
-                    GameObject fire2 = other.gameObject.transform.GetChild(2).gameObject;
                     if (songController.CheckNotes(pitch))
                     {
-                        fire.GetComponent<ParticleSystem>().Play();
-                        fire.GetComponent<ParticleSystem>().startSpeed += .1f;
-                        fire2.GetComponent<ParticleSystem>().Play();
-                        fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
+                        IgniteFireMallet();
                     }
                     else
                     {
-                        fire.GetComponent<ParticleSystem>().Stop();
-                        fire.GetComponent<ParticleSystem>().startSpeed = .5f;
-                        fire2.GetComponent<ParticleSystem>().Stop();
-                        fire2.GetComponent<ParticleSystem>().startSpeed = .5f;
+                        ExtinguishFireMallet();
                     }
                     Play(Color.green);
                 }
@@ -208,5 +183,31 @@ public class KeyController : MonoBehaviour
     public void SetInstrumentController(InstrumentController instrument)
     {
         this.instrument = instrument;
+    }
+
+    public void IgniteFireMallet()
+    {
+        foreach(GameObject mallet in GameObject.FindGameObjectsWithTag("mallet"))
+        {
+            GameObject fire = mallet.transform.GetChild(1).gameObject;
+            GameObject fire2 = mallet.transform.GetChild(2).gameObject;
+            fire.GetComponent<ParticleSystem>().Play();
+            fire.GetComponent<ParticleSystem>().startSpeed += .1f;
+            fire2.GetComponent<ParticleSystem>().Play();
+            fire2.GetComponent<ParticleSystem>().startSpeed += .1f;
+        }
+    }
+
+    public void ExtinguishFireMallet()
+    {
+        foreach (GameObject mallet in GameObject.FindGameObjectsWithTag("mallet"))
+        {
+            GameObject fire = mallet.gameObject.transform.GetChild(1).gameObject;
+            GameObject fire2 = mallet.gameObject.transform.GetChild(2).gameObject;
+            fire.GetComponent<ParticleSystem>().Stop();
+            fire.GetComponent<ParticleSystem>().startSpeed = .5f;
+            fire2.GetComponent<ParticleSystem>().Stop();
+            fire2.GetComponent<ParticleSystem>().startSpeed = .5f;
+        }
     }
 }
