@@ -12,6 +12,7 @@ public class MalletController : MonoBehaviour
 
     private Hand hand;
     private SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
+    private bool previousTeleportAction;
 
     private SongController songController;
 
@@ -35,20 +36,33 @@ public class MalletController : MonoBehaviour
             ResetPosition();
         }
 
-        if (hand != null && teleportAction.state)
+        if (hand != null && (teleportAction.state && !previousTeleportAction))
         {
             songController.paused = !songController.paused;
         }
+        previousTeleportAction = teleportAction.state;
     }
 
     public void OnAttachedToHand(Hand hand)
     {
         this.hand = hand;
         ControllerButtonHints.ShowTextHint(hand, teleportAction, "Play/Pause");
+
+        IEnumerator HideHintAfterTimer(float time)
+        {
+            yield return new WaitForSeconds(time);
+            if (this.hand != null)
+            {
+                ControllerButtonHints.HideAllTextHints(hand);
+            }
+        }
+
+        StartCoroutine(HideHintAfterTimer(5));
     }
 
     public void OnDetachedFromHand(Hand hand)
     {
+        ControllerButtonHints.HideAllTextHints(hand);
         this.hand = null;
         ResetPosition();
     }
