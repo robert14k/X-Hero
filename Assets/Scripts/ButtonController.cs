@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class ButtonController: MonoBehaviour
 {
 	public SongController songController;
-	private int speed = 0;
+	private int speed = 3;
 	private float[] speeds = new float[] { 0.3F, 0.5F, 0.8F, 1.0F, 1.2F };
 	public Text speedText;
 	public Text songText;
 	public Text typeText;
-    private string[] songs = new string[] { "Mario", "Pirate", "Wii", "Bad Guy", "Castle", "Dynamite", "Eye Tiger", "Jurassic Park", "Small World", "Twinkle Star", "USA", "RuleTheWorld", "SaveMe", "StayinAlive" };
+    private string[] songs = new string[] { "USA", "Mario", "Pirate", "Wii", "Bad Guy", "Castle", "Dynamite", "Eye Tiger", "Jurassic Park", "Small World", "Twinkle Star", "RuleTheWorld", "SaveMe", "StayinAlive" };
 
 	private int song = 0;
 	bool isStepped = false;
@@ -22,6 +22,8 @@ public class ButtonController: MonoBehaviour
     public void Start()
     {
 		typeText.text = songController.playMode.ToString();
+		songText.text = songs[song];
+		speedText.text = (speed % speeds.Length + 1).ToString();
     }
 
     public void ChangeSpeed()
