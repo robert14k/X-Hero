@@ -213,8 +213,6 @@ public class SongController : Singleton<SongController>
             {
                 float currentTime = songTime;
                 Note closest = sameNotes.Aggregate((x, y) => Math.Abs(GetNoteTime(x) - currentTime) < Math.Abs(GetNoteTime(y) - currentTime) ? x : y);
-                Debug.Log(GetNoteTime(closest));
-                Debug.Log(currentTime);
                 if (Math.Abs(GetNoteTime(closest) - currentTime) < 1)
                 {
 
