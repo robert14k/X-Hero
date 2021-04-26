@@ -21,14 +21,14 @@ public class Tutorial : MonoBehaviour
 
         // We also need to ensure the tutorial can *only* be in the mode/speed that we want it to be in
 
-        // This might be better as an if/else chain
+        // This might be better as an if/else-if chain
         switch (songController.noteIndex)
         {
             case 1:
-                // Display slide 1
+                // Display slide 1 or something
                 break;
             case 2:
-                // Display slide 2
+                // Display slide 2 or something
                 break;
             // et cetera
             default:
