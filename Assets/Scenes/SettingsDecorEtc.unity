@@ -11555,7 +11555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghostNotePrefab: {fileID: 7588880799271724925, guid: 3a7e5675bb318574484c9a0d72476de5, type: 3}
-  travelOffset: {x: -2, y: 0, z: 0}
+  travelOffset: {x: -2.5, y: 0, z: 0}
   travelDuration: 2
 --- !u!4 &8117775034146936862
 Transform:
