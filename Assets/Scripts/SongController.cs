@@ -23,7 +23,7 @@ public class SongController : Singleton<SongController>
     private float startTime;
     private float songTime = 0;
     private float earlySongTime = 0;
-    private int noteIndex = 0;
+    public int noteIndex = 0;
     private int earlyNoteIndex = 0;
     private Boolean mutex;
     private Boolean songStarted;
