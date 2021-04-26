@@ -45,14 +45,14 @@ public class SongController : Singleton<SongController>
     public void ResetSong()
     {
         mutex = true;
+        paused = true;
+        songStarted = false;
         if (!midiPath.Contains(".mid"))
         {
             midiPath = Application.streamingAssetsPath + "/Songs/" + midiPath + ".mid";
         }
         MidiFile midiFile = MidiFile.Read(midiPath);
         tempoMap = midiFile.GetTempoMap();
-        Metronome.Instance.bpm = tempoMap.Tempo.AtTime(0).BeatsPerMinute;
-        Metronome.Instance.Reset();
 
         notes = new List<Note>(midiFile.GetNotes());
 
@@ -62,7 +62,6 @@ public class SongController : Singleton<SongController>
         noteIndex = 0;
         earlyNoteIndex = 0;
         mutex = false;
-        songStarted = false;
     }
 
     void Update()
