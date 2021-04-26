@@ -25,6 +25,8 @@ public class SongController : Singleton<SongController>
     private float earlySongTime = 0;
     private int noteIndex = 0;
     private int earlyNoteIndex = 0;
+    private Boolean mutex;
+    private Boolean songStarted;
 
     private List<Note> notes;
     private TempoMap tempoMap;
@@ -42,6 +44,7 @@ public class SongController : Singleton<SongController>
 
     public void ResetSong()
     {
+        mutex = true;
         if (!midiPath.Contains(".mid"))
         {
             midiPath = Application.streamingAssetsPath + "/Songs/" + midiPath + ".mid";
@@ -58,10 +61,16 @@ public class SongController : Singleton<SongController>
         earlySongTime = 0;
         noteIndex = 0;
         earlyNoteIndex = 0;
+        mutex = false;
+        songStarted = false;
     }
 
     void Update()
     {
+        if (mutex)
+        {
+            return;
+        }
         if (!paused && playMode == PlayMode.Continuous)
         {
             if (delay > 0)
@@ -71,7 +80,7 @@ public class SongController : Singleton<SongController>
             HandleNotes();
         }
 
-        if (playMode == PlayMode.Stepped && noteIndex == 0)
+        if (playMode == PlayMode.Stepped && noteIndex == 0 && !songStarted)
         {
             noteIndex = -1;
             earlyNoteIndex = noteIndex;
@@ -145,6 +154,7 @@ public class SongController : Singleton<SongController>
 
     public void StepByAmount(int amount)
     {
+        mutex = true;
         int direction = Math.Sign(amount);
 
         for (int i = 0; i < amount; i++)
@@ -190,6 +200,11 @@ public class SongController : Singleton<SongController>
             while (noteTime == GetNoteTime(notes[noteIndex + direction]));
             OnNote(noteNumbers, noteTimes);
         }
+        if (!songStarted)
+        {
+            songStarted = true;
+        }
+        mutex = false;
     }
 
     public void JumpToNote(int index)
