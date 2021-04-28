@@ -109,7 +109,6 @@ public class SongController : Singleton<SongController>
                 earlyNoteIndex++;
                 if (earlyNoteIndex == notes.Count)
                 {
-                    paused = true;
                     break;
                 }
             }
@@ -167,6 +166,10 @@ public class SongController : Singleton<SongController>
             do
             {
                 earlyNoteIndex += direction;
+                if (earlyNoteIndex == notes.Count)
+                {
+                    break;
+                }
                 note = notes[earlyNoteIndex];
                 noteTime = GetNoteTime(note);
 
@@ -189,6 +192,10 @@ public class SongController : Singleton<SongController>
             do
             {
                 noteIndex += direction;
+                if (noteIndex == notes.Count)
+                {
+                    break;
+                }
                 note = notes[noteIndex];
                 noteTime = GetNoteTime(note);
 
