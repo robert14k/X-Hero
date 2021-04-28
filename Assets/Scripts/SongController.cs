@@ -107,7 +107,7 @@ public class SongController : Singleton<SongController>
                 noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 earlyNoteIndex++;
-                if (earlyNoteIndex == notes.Count)
+                if (earlyNoteIndex >= notes.Count)
                 {
                     break;
                 }
@@ -136,7 +136,7 @@ public class SongController : Singleton<SongController>
                 noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 noteIndex++;
-                if (noteIndex == notes.Count)
+                if (noteIndex >= notes.Count)
                 {
                     paused = true;
                     break;
@@ -166,7 +166,7 @@ public class SongController : Singleton<SongController>
             do
             {
                 earlyNoteIndex += direction;
-                if (earlyNoteIndex == notes.Count)
+                if (earlyNoteIndex >= notes.Count)
                 {
                     break;
                 }
@@ -192,7 +192,7 @@ public class SongController : Singleton<SongController>
             do
             {
                 noteIndex += direction;
-                if (noteIndex == notes.Count)
+                if (noteIndex >= notes.Count)
                 {
                     break;
                 }
