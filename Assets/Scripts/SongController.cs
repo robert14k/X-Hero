@@ -166,8 +166,10 @@ public class SongController : Singleton<SongController>
             do
             {
                 earlyNoteIndex += direction;
-                if (earlyNoteIndex >= notes.Count)
+                print(earlyNoteIndex);
+                if (earlyNoteIndex >= notes.Count - 1) //THIS IS SOMEHOW NOT EQUIVALENT TO `earlyNoteIndex > notes.Count`
                 {
+                    print("breaking");
                     break;
                 }
                 note = notes[earlyNoteIndex];
@@ -177,7 +179,7 @@ public class SongController : Singleton<SongController>
                 noteTimes.Add(noteTime);
                 earlySongTime = noteTime;
             }
-            while (noteTime == GetNoteTime(notes[earlyNoteIndex + direction]));
+            while (earlyNoteIndex < notes.Count && noteTime == GetNoteTime(notes[earlyNoteIndex + direction]));
             OnEarlyNote(noteNumbers, noteTimes);
         }
 
@@ -192,8 +194,9 @@ public class SongController : Singleton<SongController>
             do
             {
                 noteIndex += direction;
-                if (noteIndex >= notes.Count)
+                if (noteIndex >= notes.Count - 1)
                 {
+                    paused = true;
                     break;
                 }
                 note = notes[noteIndex];
@@ -203,7 +206,7 @@ public class SongController : Singleton<SongController>
                 noteTimes.Add(noteTime);
                 songTime = noteTime;
             } 
-            while (noteTime == GetNoteTime(notes[noteIndex + direction]));
+            while (noteIndex < notes.Count && noteTime == GetNoteTime(notes[noteIndex + direction]));
             OnNote(noteNumbers, noteTimes);
         }
         if (!songStarted)
