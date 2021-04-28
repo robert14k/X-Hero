@@ -38,7 +38,10 @@ public class MalletController : MonoBehaviour
 
         if (hand != null && (teleportAction.state && !previousTeleportAction))
         {
-            songController.paused = !songController.paused;
+            if (songController.playMode == PlayMode.Continuous)
+            {
+                songController.paused = !songController.paused;
+            }
         }
         previousTeleportAction = teleportAction.state;
     }
