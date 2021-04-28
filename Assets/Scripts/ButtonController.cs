@@ -12,10 +12,11 @@ public class ButtonController: MonoBehaviour
 	public Text speedText;
 	public Text songText;
 	public Text typeText;
-    private string[] songs = new string[] { "USA", "Mario", "Pirate", "Wii", "Bad Guy", "Castle", "Dynamite", "Eye Tiger", "Jurassic Park", "Small World", "Twinkle Star", "RuleTheWorld", "SaveMe", "StayinAlive" };
+    private string[] songs = new string[] { "USA", "Tutorial", "Mario", "Pirate", "Wii", "Bad Guy", "Castle", "Dynamite", "Eye Tiger", "Jurassic Park", "Small World", "Twinkle Star", "RuleTheWorld", "SaveMe", "StayinAlive" };
 
 	private int song = 0;
 	bool isStepped = false;
+	bool isTutorial = false;
 
     //-------------------------------------------------
 
@@ -36,6 +37,19 @@ public class ButtonController: MonoBehaviour
 
 	public void ChangeSong()
 	{
+        if (isTutorial)
+        {
+			isTutorial = false;
+			typeText.text = "Stepped";
+
+		}
+		if(songs[song % songs.Length].Equals("Tutorial"))
+        {
+			isTutorial = true;
+			songController.playMode = PlayMode.Stepped;
+			typeText.text = "Stepped";
+			isStepped = !isStepped;
+		}
 		songController.midiPath = songs[song % songs.Length];
 		songText.text = songs[song % songs.Length];
 		song++;
@@ -44,6 +58,11 @@ public class ButtonController: MonoBehaviour
 
 	public void ChangeType()
 	{
+        if (isTutorial)
+        {
+			typeText.text = "Only Stepped!";
+			return;
+		}
         if(isStepped){
 			songController.playMode = PlayMode.Continuous;
 			typeText.text = "Continuous";
