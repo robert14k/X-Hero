@@ -4578,6 +4578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   play: {fileID: 21300000, guid: 6ba69302cf7d71c4c8e098c51111112a, type: 3}
   pause: {fileID: 21300000, guid: def65ae68672e7341bcddf6570f410a5, type: 3}
+  fadeDuration: 2
 --- !u!1 &1626119790
 GameObject:
   m_ObjectHideFlags: 0
