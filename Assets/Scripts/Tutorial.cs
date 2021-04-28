@@ -35,6 +35,11 @@ public class Tutorial : MonoBehaviour
         }
         image.enabled = true;
 
+        if (songController.paused) // Tutorial is finished
+        {
+            image.sprite = scaleImage;
+        }
+
         // This might be better as an if/else-if chain
         switch (songController.noteIndex)
         {

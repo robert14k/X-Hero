@@ -70,6 +70,7 @@ public class ButtonController: MonoBehaviour
         else
         {
 			songController.playMode = PlayMode.Stepped;
+			songController.paused = false;
 			typeText.text = "Stepped";
 		}
 		isStepped = !isStepped;
