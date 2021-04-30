@@ -152,7 +152,6 @@ public class SongController : Singleton<SongController>
 
     public void StepByAmount(int amount)
     {
-        print("entered step by amount");
         mutex = true;
         int direction = Math.Sign(amount);
 

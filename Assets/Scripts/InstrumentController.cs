@@ -93,7 +93,7 @@ public class InstrumentController : MonoBehaviour
         }
     }
 
-    private void ResetNoteVisuals()
+    public void ResetNoteVisuals()
     {
         foreach (KeyController key in keys)
         {

@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songController: {fileID: 8070452564906776339}
+  instrument: {fileID: 1947744161}
   speedText: {fileID: 1890595119}
   songText: {fileID: 273012100}
   typeText: {fileID: 1774981888}
@@ -641,7 +642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.92
-  m_Text: 'Type:
+  m_Text: 'Mode:
 
 '
 --- !u!222 &133669497
@@ -6688,6 +6689,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8989580717813366578, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
   m_PrefabInstance: {fileID: 8070452564906776254}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1947744161 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8070452565126038497, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
+  m_PrefabInstance: {fileID: 8070452564906776254}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947744160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2c5ff0494d22a46be5df1c423dda9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1947744164
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11206,11 +11218,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: speed
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: midiPath
-      value: USA
+      value: Tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 8070452565126038496, guid: 3178500599b2d9e44b053894acc16b78, type: 3}
       propertyPath: playMode
