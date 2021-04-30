@@ -152,6 +152,7 @@ public class SongController : Singleton<SongController>
 
     public void StepByAmount(int amount)
     {
+        print("entered step by amount");
         mutex = true;
         int direction = Math.Sign(amount);
 
@@ -166,10 +167,8 @@ public class SongController : Singleton<SongController>
             do
             {
                 earlyNoteIndex += direction;
-                print(earlyNoteIndex);
-                if (earlyNoteIndex >= notes.Count - 1) //THIS IS SOMEHOW NOT EQUIVALENT TO `earlyNoteIndex > notes.Count`
+                if (earlyNoteIndex >= notes.Count)
                 {
-                    print("breaking");
                     break;
                 }
                 note = notes[earlyNoteIndex];
@@ -178,8 +177,12 @@ public class SongController : Singleton<SongController>
                 noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 earlySongTime = noteTime;
+                if (earlyNoteIndex + direction >= notes.Count)
+                {
+                    break;
+                }
             }
-            while (earlyNoteIndex < notes.Count && noteTime == GetNoteTime(notes[earlyNoteIndex + direction]));
+            while (noteTime == GetNoteTime(notes[earlyNoteIndex + direction]));
             OnEarlyNote(noteNumbers, noteTimes);
         }
 
@@ -194,7 +197,7 @@ public class SongController : Singleton<SongController>
             do
             {
                 noteIndex += direction;
-                if (noteIndex >= notes.Count - 1)
+                if (noteIndex >= notes.Count)
                 {
                     paused = true;
                     break;
@@ -205,8 +208,12 @@ public class SongController : Singleton<SongController>
                 noteNumbers.Add(note.NoteNumber - noteOffset);
                 noteTimes.Add(noteTime);
                 songTime = noteTime;
+                if (noteIndex + direction >= notes.Count)
+                {
+                    break;
+                }
             } 
-            while (noteIndex < notes.Count && noteTime == GetNoteTime(notes[noteIndex + direction]));
+            while (noteTime == GetNoteTime(notes[noteIndex + direction]));
             OnNote(noteNumbers, noteTimes);
         }
         if (!songStarted)
